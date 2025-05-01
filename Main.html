@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidor dos Amigos | Discord</title>
+    <style>
+        :root {
+            --primary: #5865F2;
+            --secondary: #9B59B6;
+            --light: #F5F5F5;
+            --dark: #23272A;
+            --accent: #FFC83D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-emoji {
+            position: absolute;
+            opacity: 0.2;
+            font-size: 2rem;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        h1, h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background-color: #FFD966;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .team-member {
+            width: 200px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-avatar {
+            width: 100%;
+            height: 100px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .member-info {
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-role {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .rules {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .rules ol {
+            margin-left: 2rem;
+        }
+        
+        .rules li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: 150px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #666;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            section {
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="floating-emoji" style="top: 10%; left: 15%;">🎮</div>
+        <div class="floating-emoji" style="top: 20%; left: 80%;">😄</div>
+        <div class="floating-emoji" style="top: 70%; left: 25%;">❤️</div>
+        <div class="floating-emoji" style="top: 60%; left: 85%;">🎯</div>
+        <div class="floating-emoji" style="top: 80%; left: 50%;">✨</div>
+        <div class="container">
+            <h1>🎉 Bem-vindo ao Servidor dos Amigos!</h1>
+            <p class="tagline">Um lugar acolhedor, divertido e feito para você que quer bater papo, jogar, dar risada e fazer novos amigos. Seja bem-vindo à nossa comunidade!</p>
+            <a href="https://discord.gg/kTYWqaqkJq" class="btn" target="_blank">🔗 Entrar no Discord</a>
+        </div>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <h2>🧑‍🤝‍🧑 Aqui é onde a amizade acontece!</h2>
+            <p>O Servidor dos Amigos é um cantinho da internet onde todo mundo é bem-vindo. Aqui a vibe é leve, engraçada e respeitosa. Seja você gamer, otaku, estudante ou só alguém querendo conversar, temos espaço pra você.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <h3>Bate-papo livre 24h</h3>
+                    <p>Conversas sobre qualquer assunto, a qualquer hora do dia.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Canais para jogos e grupos</h3>
+                    <p>Encontre parceiros para suas partidas favoritas.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📸</div>
+                    <h3>Compartilhamento</h3>
+                    <p>Compartilhe memes, fotos e momentos especiais com a galera.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎉</div>
+                    <h3>Eventos e brincadeiras</h3>
+                    <p>Eventos regulares e atividades divertidas para todos participarem.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Bots interativos</h3>
+                    <p>Bots para música, mini-games e muito mais diversão.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="team" style="background-color: #f0f0f0;">
+        <div class="container">
+            <h2>👑 Quem cuida da bagunça 😄</h2>
+            <p>Nossa equipe está sempre pronta para ajudar, organizar eventos e manter tudo funcionando!</p>
+            
+            <div class="team">
+                <div class="team-member">
+                    <div class="member-avatar">👑</div>
+                    <div class="member-info">
+                        <div class="member-name">@Lucas</div>
+                        <div class="member-role">Dono do servidor</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar" style="background-color: var(--secondary);">🛡️</div>
+                    <div class="member-info">
+                        <div class="member-name">@Nina</div>
+                        <div class="member-role">Mod sensata</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar" style="background-color: #50C878;">😂</div>
+                    <div class="member-info">
+                        <div class="member-name">@ZéMemeiro</div>
+                        <div class="member-role">A alma do humor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="rules">
+        <div class="container">
+            <h2>📜 Respeito é a chave de tudo 🔑</h2>
+            <div class="rules">
+                <ol>
+                    <li>Sem ofensas, racismo ou preconceito.</li>
+                    <li>Nada de spam ou links suspeitos.</li>
+                    <li>Respeite os canais e os moderadores.</li>
+                    <li>Divirta-se com responsabilidade!</li>
+                </ol>
+                <p style="margin-top: 1rem; font-style: italic;">*(Regras completas estão no canal #regras no servidor)*</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="gallery" style="background-color: #f0f0f0;">
+        <div class="container">
+            <h2>🖼️ Melhores momentos da galera!</h2>
+            <p>Uma seleção de prints, memes e fanarts enviados pelos membros. Mostre seu talento, seu pet ou sua risada!</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="/api/placeholder/200/150" alt="Comunidade">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/200/150" alt="Evento">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/200/150" alt="Gameplay">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/200/150" alt="Meme">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/200/150" alt="Arte">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/200/150" alt="Pet">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <h3>Entre agora e faça parte da nossa comunidade!</h3>
+            <a href="https://discord.gg/kTYWqaqkJq" class="btn" target="_blank">🔗 Entrar no Discord</a>
+            <p style="margin-top: 2rem;">© 2025 Servidor dos Amigos | Criado com ❤️ pela comunidade</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Adiciona emojis flutuantes aleatórios no header
+        const emojis = ['🎮', '😄', '❤️', '✌️', '🎵', '🎯', '✨', '🌟'];
+        const header = document.querySelector('header');
+        
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                const emoji = document.createElement('div');
+                emoji.className = 'floating-emoji';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = `${Math.random() * 90 + 5}%`;
+                emoji.style.top = `${Math.random() * 80 + 10}%`;
+                emoji.style.animationDelay = `${Math.random() * 5}s`;
+                header.appendChild(emoji);
+            }, i * 1000);
+        }
+    </script>
+</body>
+</html>
